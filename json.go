@@ -20,6 +20,6 @@ func Ip(w http.ResponseWriter, r *http.Request) {
  
 func main() {
     http.HandleFunc("/ip", Ip)
-	http.HandleFunc("/header", Header)
+    http.HandleFunc("/header", Header)
     http.ListenAndServe(":3000", nil)
 }
