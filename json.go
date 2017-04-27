@@ -2,16 +2,24 @@
 package main
 
 import (
+    "strings"
     "net/http"
     "encoding/json"
 )
-func SayHello(w http.ResponseWriter, r *http.Request) {
-	map1 = r.Header
-    str, _ := json.Marshal(map1)
-    w.Write(str)
+func Header(w http.ResponseWriter, r *http.Request) {
+    head := r.Header
+    headers, _ := json.Marshal(head)
+    w.Write(headers)
+}
+
+func Ip(w http.ResponseWriter, r *http.Request) {
+    a := r.RemoteAddr
+    ip := strings.Split(a,":")[0]
+    w.Write([]byte(ip))
 }
  
 func main() {
-    http.HandleFunc("/", SayHello)
+    http.HandleFunc("/ip", Ip)
+	http.HandleFunc("/header", Header)
     http.ListenAndServe(":3000", nil)
 }
